@@ -17,81 +17,152 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background-color: #e8e4df;
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      background-color: #d5d0c8;
     }
 
     .card {
-      width: 500px;
-      background-color: #f5f2ed;
-      padding: 48px 40px 40px;
+      width: 550px;
+      min-height: 825px;
+      position: relative;
       text-align: center;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      /* Watercolor paper texture via layered gradients and noise */
+      background-color: #f0ebe4;
+      background-image:
+        /* Subtle warm spots like watercolor paper */
+        radial-gradient(ellipse at 20% 15%, rgba(210, 195, 170, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 85%, rgba(210, 195, 170, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(220, 210, 195, 0.15) 0%, transparent 70%),
+        radial-gradient(ellipse at 10% 80%, rgba(200, 185, 165, 0.2) 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 20%, rgba(200, 185, 165, 0.15) 0%, transparent 40%),
+        /* Fine grain texture simulation */
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(180, 170, 150, 0.03) 2px,
+          rgba(180, 170, 150, 0.03) 4px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 2px,
+          rgba(180, 170, 150, 0.03) 2px,
+          rgba(180, 170, 150, 0.03) 4px
+        );
+    }
+
+    /* SVG noise filter for paper grain */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.4;
+      filter: url(#paper-texture);
+      background:
+        repeating-conic-gradient(
+          rgba(170, 155, 135, 0.06) 0% 25%,
+          transparent 0% 50%
+        ) 0 0 / 4px 4px,
+        repeating-conic-gradient(
+          rgba(170, 155, 135, 0.04) 0% 25%,
+          transparent 0% 50%
+        ) 2px 2px / 4px 4px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .top-section {
+      padding: 50px 40px 10px;
     }
 
     .save-the-date {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 42px;
+      font-size: 46px;
       font-style: italic;
-      color: #5a7a6a;
-      margin-bottom: 8px;
+      color: #6b8f7b;
+      margin-bottom: 6px;
       font-weight: 400;
-      line-height: 1.2;
+      line-height: 1.15;
     }
 
     .date-time {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 20px;
+      font-size: 21px;
       color: #3a3a3a;
       font-weight: 500;
-      margin-bottom: 4px;
-      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+      letter-spacing: 0.3px;
     }
 
     .for-wedding {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-style: italic;
-      font-size: 18px;
-      color: #666;
-      margin-bottom: 8px;
+      font-size: 19px;
+      color: #888;
+      margin-bottom: 2px;
       font-weight: 300;
     }
 
-    .names {
+    .name {
       font-family: 'Playfair Display', Georgia, serif;
       font-style: italic;
-      font-size: 38px;
-      color: #5a7a6a;
-      line-height: 1.25;
-      margin-bottom: 4px;
+      font-size: 42px;
+      color: #6b8f7b;
+      line-height: 1.15;
       font-weight: 400;
     }
 
     .ampersand {
       font-family: 'Playfair Display', Georgia, serif;
       font-style: italic;
-      font-size: 32px;
-      color: #5a7a6a;
-      line-height: 1;
+      font-size: 34px;
+      color: #6b8f7b;
+      line-height: 1.1;
       font-weight: 400;
     }
 
-    .photo-container {
-      margin: 20px auto;
-      width: 90%;
+    .photo-section {
+      width: 100%;
+      position: relative;
+      margin-top: 6px;
     }
 
-    .photo-container img {
+    .photo-section img {
       width: 100%;
       height: auto;
       display: block;
+      /* Blend the image edges into the paper background */
+      mask-image:
+        linear-gradient(to bottom, transparent 0%, black 8%, black 85%, transparent 100%),
+        linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+      mask-composite: intersect;
+      -webkit-mask-image:
+        linear-gradient(to bottom, transparent 0%, black 8%, black 85%, transparent 100%),
+        linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+      -webkit-mask-composite: source-in;
+      mix-blend-mode: multiply;
+      opacity: 0.92;
+    }
+
+    .bottom-section {
+      padding: 0px 40px 45px;
+      margin-top: -15px;
     }
 
     .venue {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 17px;
       color: #3a3a3a;
-      line-height: 1.7;
+      line-height: 1.65;
       font-weight: 400;
       letter-spacing: 0.3px;
     }
@@ -104,31 +175,43 @@
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-style: italic;
       font-size: 17px;
-      color: #5a7a6a;
-      margin-top: 18px;
+      color: #6b8f7b;
+      margin-top: 20px;
       font-weight: 400;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="save-the-date">Save the Date</div>
-    <div class="date-time">October 31st, 5:30pm</div>
-    <div class="for-wedding">for the wedding of</div>
-    <div class="names">Zev Shapero</div>
-    <div class="ampersand">&amp;</div>
-    <div class="names">Rachel Winer</div>
+  <!-- SVG filter for paper texture noise -->
+  <svg width="0" height="0" style="position:absolute">
+    <filter id="paper-texture">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="5" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+      <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply"/>
+    </filter>
+  </svg>
 
-    <div class="photo-container">
+  <div class="card">
+    <div class="top-section">
+      <div class="save-the-date">Save the Date</div>
+      <div class="date-time">October 31st, 5:30pm</div>
+      <div class="for-wedding">for the wedding of</div>
+      <div class="name">Zev Shapero</div>
+      <div class="ampersand">&amp;</div>
+      <div class="name">Rachel Winer</div>
+    </div>
+
+    <div class="photo-section">
       <img src="DTS0179TheDistilleryHistoricDistrict_Toronto-DowntownSketcher_7.png" alt="The Distillery Historic District, Toronto">
     </div>
 
-    <div class="venue">
-      <span class="venue-line">Ceremony at The Loft &amp; Archeo</span>
-      <span class="venue-line">Distillery District &bull; Toronto</span>
+    <div class="bottom-section">
+      <div class="venue">
+        <span class="venue-line">Ceremony at The Loft &amp; Archeo</span>
+        <span class="venue-line">Distillery District &bull; Toronto</span>
+      </div>
+      <div class="formal-invite">Formal invitation to follow</div>
     </div>
-
-    <div class="formal-invite">Formal invitation to follow</div>
   </div>
 </body>
 </html>
