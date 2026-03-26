@@ -4,103 +4,74 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Save the Date - Zev Shapero & Rachel Winer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background-color: #d5d0c8;
+      background-color: #c8c3ba;
     }
 
     .card {
-      width: 550px;
-      min-height: 825px;
+      width: 520px;
+      height: 780px;
       position: relative;
       text-align: center;
       overflow: hidden;
-      /* Watercolor paper texture via layered gradients and noise */
-      background-color: #f0ebe4;
+      background-color: #efe9e0;
+      /* Watercolor paper texture */
       background-image:
-        /* Subtle warm spots like watercolor paper */
-        radial-gradient(ellipse at 20% 15%, rgba(210, 195, 170, 0.3) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 85%, rgba(210, 195, 170, 0.25) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(220, 210, 195, 0.15) 0%, transparent 70%),
-        radial-gradient(ellipse at 10% 80%, rgba(200, 185, 165, 0.2) 0%, transparent 40%),
-        radial-gradient(ellipse at 90% 20%, rgba(200, 185, 165, 0.15) 0%, transparent 40%),
-        /* Fine grain texture simulation */
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(180, 170, 150, 0.03) 2px,
-          rgba(180, 170, 150, 0.03) 4px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 2px,
-          rgba(180, 170, 150, 0.03) 2px,
-          rgba(180, 170, 150, 0.03) 4px
-        );
+        radial-gradient(ellipse at 15% 10%, rgba(205, 190, 165, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 90%, rgba(205, 190, 165, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(215, 205, 188, 0.15) 0%, transparent 70%),
+        radial-gradient(ellipse at 8% 75%, rgba(195, 180, 160, 0.2) 0%, transparent 40%),
+        radial-gradient(ellipse at 92% 25%, rgba(195, 180, 160, 0.15) 0%, transparent 40%);
     }
 
-    /* SVG noise filter for paper grain */
+    /* Paper grain overlay */
     .card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      opacity: 0.4;
-      filter: url(#paper-texture);
-      background:
-        repeating-conic-gradient(
-          rgba(170, 155, 135, 0.06) 0% 25%,
-          transparent 0% 50%
-        ) 0 0 / 4px 4px,
-        repeating-conic-gradient(
-          rgba(170, 155, 135, 0.04) 0% 25%,
-          transparent 0% 50%
-        ) 2px 2px / 4px 4px;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 0;
-    }
-
-    .card > * {
-      position: relative;
       z-index: 1;
     }
 
-    .top-section {
-      padding: 50px 40px 10px;
+    .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* === TOP TEXT === */
+    .top-text {
+      padding: 42px 30px 0;
     }
 
     .save-the-date {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 46px;
+      font-size: 48px;
       font-style: italic;
       color: #6b8f7b;
-      margin-bottom: 6px;
       font-weight: 400;
-      line-height: 1.15;
+      line-height: 1.1;
+      margin-bottom: 5px;
     }
 
     .date-time {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 21px;
-      color: #3a3a3a;
+      font-size: 22px;
+      color: #3d3d3d;
       font-weight: 500;
-      margin-bottom: 2px;
       letter-spacing: 0.3px;
+      margin-bottom: 0;
     }
 
     .for-wedding {
@@ -108,14 +79,27 @@
       font-style: italic;
       font-size: 19px;
       color: #888;
-      margin-bottom: 2px;
       font-weight: 300;
+    }
+
+    /* === NAMES over image === */
+    .names-and-image {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .names {
+      position: relative;
+      z-index: 3;
+      padding: 0 30px;
     }
 
     .name {
       font-family: 'Playfair Display', Georgia, serif;
       font-style: italic;
-      font-size: 42px;
+      font-size: 46px;
       color: #6b8f7b;
       line-height: 1.15;
       font-weight: 400;
@@ -124,47 +108,47 @@
     .ampersand {
       font-family: 'Playfair Display', Georgia, serif;
       font-style: italic;
-      font-size: 34px;
+      font-size: 36px;
       color: #6b8f7b;
-      line-height: 1.1;
+      line-height: 1.0;
       font-weight: 400;
     }
 
-    .photo-section {
-      width: 100%;
+    /* === IMAGE === */
+    .image-wrapper {
+      flex: 1;
       position: relative;
-      margin-top: 6px;
+      margin-top: -10px;
+      overflow: hidden;
     }
 
-    .photo-section img {
+    .image-wrapper img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: contain;
+      object-position: center top;
       display: block;
-      /* Blend the image edges into the paper background */
-      mask-image:
-        linear-gradient(to bottom, transparent 0%, black 8%, black 85%, transparent 100%),
-        linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-      mask-composite: intersect;
-      -webkit-mask-image:
-        linear-gradient(to bottom, transparent 0%, black 8%, black 85%, transparent 100%),
-        linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-      -webkit-mask-composite: source-in;
       mix-blend-mode: multiply;
-      opacity: 0.92;
+      opacity: 0.9;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 80%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 80%, transparent 100%);
     }
 
-    .bottom-section {
-      padding: 0px 40px 45px;
-      margin-top: -15px;
+    /* === BOTTOM TEXT === */
+    .bottom-text {
+      position: relative;
+      z-index: 3;
+      padding: 0 30px 38px;
+      margin-top: -30px;
     }
 
     .venue {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 17px;
-      color: #3a3a3a;
-      line-height: 1.65;
+      font-size: 16.5px;
+      color: #3d3d3d;
+      line-height: 1.6;
       font-weight: 400;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.2px;
     }
 
     .venue-line {
@@ -176,41 +160,39 @@
       font-style: italic;
       font-size: 17px;
       color: #6b8f7b;
-      margin-top: 20px;
+      margin-top: 16px;
       font-weight: 400;
     }
   </style>
 </head>
 <body>
-  <!-- SVG filter for paper texture noise -->
-  <svg width="0" height="0" style="position:absolute">
-    <filter id="paper-texture">
-      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="5" stitchTiles="stitch" result="noise"/>
-      <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
-      <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply"/>
-    </filter>
-  </svg>
-
   <div class="card">
-    <div class="top-section">
-      <div class="save-the-date">Save the Date</div>
-      <div class="date-time">October 31st, 5:30pm</div>
-      <div class="for-wedding">for the wedding of</div>
-      <div class="name">Zev Shapero</div>
-      <div class="ampersand">&amp;</div>
-      <div class="name">Rachel Winer</div>
-    </div>
-
-    <div class="photo-section">
-      <img src="DTS0179TheDistilleryHistoricDistrict_Toronto-DowntownSketcher_7.png" alt="The Distillery Historic District, Toronto">
-    </div>
-
-    <div class="bottom-section">
-      <div class="venue">
-        <span class="venue-line">Ceremony at The Loft &amp; Archeo</span>
-        <span class="venue-line">Distillery District &bull; Toronto</span>
+    <div class="content">
+      <div class="top-text">
+        <div class="save-the-date">Save the Date</div>
+        <div class="date-time">October 31st, 5:30pm</div>
+        <div class="for-wedding">for the wedding of</div>
       </div>
-      <div class="formal-invite">Formal invitation to follow</div>
+
+      <div class="names-and-image">
+        <div class="names">
+          <div class="name">Zev Shapero</div>
+          <div class="ampersand">&amp;</div>
+          <div class="name">Rachel Winer</div>
+        </div>
+
+        <div class="image-wrapper">
+          <img src="DTS0179TheDistilleryHistoricDistrict_Toronto-DowntownSketcher_7.png" alt="The Distillery Historic District, Toronto">
+        </div>
+      </div>
+
+      <div class="bottom-text">
+        <div class="venue">
+          <span class="venue-line">Ceremony at The Loft &amp; Archeo</span>
+          <span class="venue-line">Distillery District &bull; Toronto</span>
+        </div>
+        <div class="formal-invite">Formal invitation to follow</div>
+      </div>
     </div>
   </div>
 </body>
